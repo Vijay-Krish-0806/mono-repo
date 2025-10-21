@@ -53,18 +53,13 @@ export const ChatInput = ({
     field: any
   ) => {
     field.onChange(e);
-
-    // Clear previous timeout
     if (typingTimeoutRef.current) {
       clearTimeout(typingTimeoutRef.current);
     }
 
-    // Emit typing event
     emitTyping();
-
-    // Stop emitting typing after 1 second of inactivity
     typingTimeoutRef.current = setTimeout(() => {
-      // Typing indicator will auto-clear after timeout in the hook
+     
     }, 1000);
   };
 

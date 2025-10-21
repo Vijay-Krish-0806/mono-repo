@@ -47,7 +47,10 @@ export default function CreateServerModal() {
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/servers", values);
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/servers`,
+        values
+      );
       form.reset();
       router.refresh();
       onClose();

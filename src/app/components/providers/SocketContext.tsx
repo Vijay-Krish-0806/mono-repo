@@ -172,8 +172,8 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
-import type { ServerToClientEvents, ClientToServerEvents } from "shared";
 import { useSession } from "../../../../lib/auth-client";
+import { ClientToServerEvents, ServerToClientEvents } from "@/types";
 
 type SocketType = Socket<ServerToClientEvents, ClientToServerEvents>;
 

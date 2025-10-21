@@ -73,7 +73,7 @@ export default function CreateChannelModal() {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const url = qs.stringifyUrl({
-        url: "/api/channels",
+        url: `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/channels`,
         query: {
           serverId: params.serverId,
         },

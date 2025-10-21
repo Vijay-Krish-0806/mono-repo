@@ -24,6 +24,7 @@ import z from "zod";
 import { FileUpload } from "@/app/components/file-upload";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { useSession } from "../../../../lib/auth-client";
 const formSchema = z.object({
   name: z.string().min(1, {
     message: "Server name is required.",
@@ -34,6 +35,7 @@ const formSchema = z.object({
 });
 
 export default function InitialModal() {
+  const session=useSession();
   const [isMounted, setIsMounted] = React.useState(false);
   const router = useRouter();
   useEffect(() => {
@@ -49,7 +51,10 @@ export default function InitialModal() {
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/servers", values);
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/servers/${session.data?.user.id}`,
+        values
+      );
       form.reset();
       router.refresh();
       window.location.reload();

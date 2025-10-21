@@ -44,7 +44,7 @@ export default async function ChannelIdPage({ params }: ChannelIdPageProps) {
             member={member}
             name={channel.name}
             type="channel"
-            apiUrl={`/api/messages`}
+            apiUrl={`${process.env.NEXT_PUBLIC_SOCKET_URL}/api/messages`}
             socketUrl={`${process.env.NEXT_PUBLIC_SOCKET_URL}/api/messages`}
             chatId={channel.id}
             socketQuery={{

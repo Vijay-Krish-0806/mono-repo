@@ -5,7 +5,7 @@ import { useSocket } from "./providers/SocketContext";
 
 export const SocketIndicator = () => {
   const { isConnected } = useSocket();
- 
+
   if (!isConnected) {
     return (
       <Badge

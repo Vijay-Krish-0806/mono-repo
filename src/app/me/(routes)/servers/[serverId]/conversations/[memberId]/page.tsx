@@ -77,7 +77,7 @@ export default async function ConversationPage({
             name={otherMember.user.name!}
             chatId={conversation.id}
             type="conversation"
-            apiUrl="/api/direct-messages"
+            apiUrl={`${process.env.NEXT_PUBLIC_SOCKET_URL}/api/direct-messages`}
             paramKey="conversationId"
             paramValue={conversation.id}
             socketUrl={

@@ -26,7 +26,9 @@ export default function DeleteServerModal() {
   const confirmation = async () => {
     try {
       setIsLoading(true);
-      await axios.delete(`/api/servers/${server?.id}`);
+      await axios.delete(
+        `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/servers/${server?.id}`
+      );
       onClose();
       router.refresh();
       router.push("/me");

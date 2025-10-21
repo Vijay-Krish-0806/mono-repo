@@ -72,7 +72,7 @@ export default function EditChannelModal() {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const url = qs.stringifyUrl({
-        url: `/api/channels/${channel?.id}`,
+        url: `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/channels/${channel?.id}`,
         query: {
           serverId: server?.id,
         },

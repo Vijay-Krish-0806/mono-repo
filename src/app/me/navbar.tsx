@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { LogOut, Loader2, User, Bell, Badge } from "lucide-react";
 import { ModeToggle } from "../components/toggle";
 import { useSocket } from "../components/providers/SocketContext";
-import { useNotifications } from "../../../hooks/use-notifications";
 import { NotificationBell } from "../components/NotificationBell";
 import { UserSearch } from "../components/UserSearch";
 import { FriendRequests } from "../components/FriendsRequest";
@@ -17,8 +16,6 @@ export default function Navbar() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { socket } = useSocket();
-
-  const { unreadCount } = useNotifications(socket, session?.user.id!);
 
   const handleLogout = async () => {
     setLoading(true);

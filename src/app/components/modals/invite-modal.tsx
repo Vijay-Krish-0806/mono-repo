@@ -39,7 +39,7 @@ export default function InviteModal() {
     try {
       setIsLoading(true);
       const response = await axios.patch(
-        `/api/servers/${server?.id}/invite-code`
+        `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/servers/${server?.id}/invite-code`
       );
       onOpen("invite", { server: response.data });
     } catch (error) {

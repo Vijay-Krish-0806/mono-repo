@@ -16,7 +16,7 @@ import qs from "query-string";
 import { useState } from "react";
 import axios from "axios";
 import { DialogDescription } from "@radix-ui/react-dialog";
-import {  useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function DeleteChannelModal() {
   const { onClose, type, data, isOpen } = useModal();
@@ -29,7 +29,7 @@ export default function DeleteChannelModal() {
     try {
       setIsLoading(true);
       const url = qs.stringifyUrl({
-        url: `/api/channels/${channel?.id}`,
+        url: `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/channels/${channel?.id}`,
         query: {
           serverId: server?.id,
         },
