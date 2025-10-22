@@ -35,7 +35,7 @@ const formSchema = z.object({
 });
 
 export default function InitialModal() {
-  const session=useSession();
+  const session = useSession();
   const [isMounted, setIsMounted] = React.useState(false);
   const router = useRouter();
   useEffect(() => {
@@ -52,8 +52,8 @@ export default function InitialModal() {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.post(
-        `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/servers/${session.data?.user.id}`,
-        values
+        `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/servers`,
+        values,{ withCredentials: true }
       );
       form.reset();
       router.refresh();

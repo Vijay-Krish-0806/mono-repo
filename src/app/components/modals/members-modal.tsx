@@ -67,7 +67,7 @@ export default function MembersModal() {
         },
       });
 
-      const response = await axios.delete(url);
+      const response = await axios.delete(url,{ withCredentials: true });
       router.refresh();
       onOpen("members", { server: response.data });
     } catch (error) {
@@ -87,7 +87,7 @@ export default function MembersModal() {
         },
       });
 
-      const response = await axios.patch(url, { role });
+      const response = await axios.patch(url, { role },{ withCredentials: true });
       router.refresh();
       onOpen("members", { server: response.data });
     } catch (error) {

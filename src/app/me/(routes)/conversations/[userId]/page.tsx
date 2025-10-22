@@ -6,17 +6,23 @@ import { ChatInput } from "@/app/components/chat/chat-input";
 import { getSession } from "../../../../../../lib/auth-utils";
 import db from "../../../../../../db/drizzle";
 import { getOrCreateConversation } from "../../../../../../db/queries";
+import { MediaRoom } from "@/app/components/media-room";
 
 interface DirectConversationPageProps {
   params: {
     userId: string;
   };
+  searchParams: {
+    video?: boolean;
+  };
 }
 
 export default async function DirectConversationPage({
   params,
+  searchParams,
 }: DirectConversationPageProps) {
   const profile = await getSession();
+  searchParams = await searchParams;
 
   if (!profile) {
     return redirect("/auth/sign-in");
@@ -74,36 +80,48 @@ export default async function DirectConversationPage({
         serverId=""
         type="conversation"
       />
+      {searchParams.video && (
+        <MediaRoom
+          chatId={conversation.id}
+          video={true}
+          audio={true}
+          profileName={profile.name}
+        />
+      )}
 
-      <ChatMessages
-        member={currentUserMember}
-        name={otherMember.user.name!}
-        chatId={conversation.id}
-        type="conversation"
-        apiUrl={`${process.env.NEXT_PUBLIC_SOCKET_URL}/api/direct-messages`}
-        paramKey="conversationId"
-        paramValue={conversation.id}
-        socketUrl={
-          `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/direct-messages` ||
-          "http://localhost:4000/api/direct-messages"
-        }
-        socketQuery={{
-          conversationId: conversation.id,
-          profileId: profile.id,
-        }}
-      />
-      <ChatInput
-        name={otherMember.user.name!}
-        type="conversation"
-        apiUrl={
-          `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/direct-messages` ||
-          "http://localhost:4000/api/direct-messages"
-        }
-        query={{
-          conversationId: conversation.id,
-          profileId: profile.id,
-        }}
-      />
+      {!searchParams.video && (
+        <>
+          <ChatMessages
+            member={currentUserMember}
+            name={otherMember.user.name!}
+            chatId={conversation.id}
+            type="conversation"
+            apiUrl={`${process.env.NEXT_PUBLIC_SOCKET_URL}/api/direct-messages`}
+            paramKey="conversationId"
+            paramValue={conversation.id}
+            socketUrl={
+              `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/direct-messages` ||
+              "http://localhost:4000/api/direct-messages"
+            }
+            socketQuery={{
+              conversationId: conversation.id,
+              profileId: profile.id,
+            }}
+          />
+          <ChatInput
+            name={otherMember.user.name!}
+            type="conversation"
+            apiUrl={
+              `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/direct-messages` ||
+              "http://localhost:4000/api/direct-messages"
+            }
+            query={{
+              conversationId: conversation.id,
+              profileId: profile.id,
+            }}
+          />
+        </>
+      )}
     </div>
   );
 }

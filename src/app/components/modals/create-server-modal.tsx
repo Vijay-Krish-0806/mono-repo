@@ -49,7 +49,7 @@ export default function CreateServerModal() {
     try {
       await axios.post(
         `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/servers`,
-        values
+        values,{ withCredentials: true }
       );
       form.reset();
       router.refresh();

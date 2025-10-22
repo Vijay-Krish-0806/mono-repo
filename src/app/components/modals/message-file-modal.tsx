@@ -48,10 +48,14 @@ export default function MessageFileModal() {
         query,
       });
       console.log("url", url, "values", values);
-      await axios.post(url, {
-        ...values,
-        content: values.fileUrl,
-      });
+      await axios.post(
+        url,
+        {
+          ...values,
+          content: values.fileUrl,
+        },
+        { withCredentials: true }
+      );
       form.reset();
       router.refresh();
       handleClose();

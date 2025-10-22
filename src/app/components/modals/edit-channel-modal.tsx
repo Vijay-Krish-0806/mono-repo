@@ -77,7 +77,7 @@ export default function EditChannelModal() {
           serverId: server?.id,
         },
       });
-      await axios.patch(url, values);
+      await axios.patch(url, values,{ withCredentials: true });
       form.reset();
       router.refresh();
       onClose();

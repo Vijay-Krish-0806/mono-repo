@@ -95,7 +95,7 @@ export const ChatItem = ({
         url: `${socketUrl}/${id}/reaction`,
         query: socketQuery,
       });
-      await axios.post(url, { emoji });
+      await axios.post(url, { emoji },{ withCredentials: true });
     } catch (err) {
       console.error(err);
     }
@@ -107,7 +107,7 @@ export const ChatItem = ({
         url: `${socketUrl}/${id}`,
         query: socketQuery,
       });
-      await axios.patch(url, values);
+      await axios.patch(url, values,{ withCredentials: true });
       setIsEditing(false);
     } catch (err) {
       console.error(err);

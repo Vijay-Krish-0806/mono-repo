@@ -40,7 +40,7 @@ export default function InviteModal() {
       setIsLoading(true);
       const response = await axios.patch(
         `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/servers/${server?.id}/invite-code`
-      );
+      ,{ withCredentials: true });
       onOpen("invite", { server: response.data });
     } catch (error) {
       console.error(error);

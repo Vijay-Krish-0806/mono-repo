@@ -70,7 +70,7 @@ export const ChatInput = ({
         query,
       });
       console.log("url", url, "values", value);
-      await axios.post(url, value);
+      await axios.post(url, value,{ withCredentials: true });
       form.reset();
       router.refresh();
 

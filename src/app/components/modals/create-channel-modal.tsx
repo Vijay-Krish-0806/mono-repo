@@ -34,6 +34,7 @@ import axios from "axios";
 import { useModal } from "../../../../hooks/use-modal-store";
 import { channelTypeEnum } from "../../../../db/schema";
 import { useEffect } from "react";
+import { useSession } from "../../../../lib/auth-client";
 
 const formSchema = z.object({
   name: z
@@ -52,6 +53,7 @@ export default function CreateChannelModal() {
   const { isOpen, onClose, type, data } = useModal();
   const params = useParams();
 
+  const session = useSession();
   const isOpenModal = isOpen && type === "createChannel";
   const { channelType } = data;
 
@@ -74,11 +76,17 @@ export default function CreateChannelModal() {
     try {
       const url = qs.stringifyUrl({
         url: `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/channels`,
-        query: {
-          serverId: params.serverId,
-        },
+        query: { serverId: params.serverId },
       });
-      await axios.post(url, values);
+      await axios.post(
+        url,
+        {
+          name: values.name,
+          type: values.type,
+          userId: session.data?.user.id,
+        },
+        { withCredentials: true }
+      );
       form.reset();
       router.refresh();
       onClose();

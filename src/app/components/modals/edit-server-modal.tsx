@@ -61,7 +61,7 @@ export default function EditServerModal() {
     try {
       await axios.patch(
         `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/servers/${server?.id}`,
-        values
+        values,{ withCredentials: true }
       );
       form.reset();
       router.refresh();

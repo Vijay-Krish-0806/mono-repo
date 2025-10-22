@@ -30,7 +30,7 @@ export default function DeleteMessageModal() {
         url: apiUrl || "",
         query,
       });
-      await axios.delete(url);
+      await axios.delete(url,{ withCredentials: true });
       onClose();
     } catch (error) {
       console.log(error);
