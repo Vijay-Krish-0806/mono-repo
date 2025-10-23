@@ -31,7 +31,7 @@ export default async function ChannelIdPage({ params }: ChannelIdPageProps) {
   if (!channel || !member) return redirect("/me");
 
   return (
-    <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
+    <div className="bg-white dark:bg-[#313338] flex flex-col h-full relative">
       <ChatHeader
         name={channel.name}
         serverId={channel.serverId}

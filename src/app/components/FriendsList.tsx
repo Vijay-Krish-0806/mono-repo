@@ -50,7 +50,7 @@ export function FriendsList({ userId }: FriendsListProps) {
                     <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-zinc-800 rounded-full" />
                   )}
                 </div>
-                <p className="mt-2 text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate max-w-[100px]">
+                <p className="mt-2 text-xs font-medium text-zinc-900 dark:text-zinc-100 truncate max-w-[100px]">
                   {friend.name}
                 </p>
               </div>
