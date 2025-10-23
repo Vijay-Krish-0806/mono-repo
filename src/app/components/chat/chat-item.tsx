@@ -23,7 +23,7 @@ const formSchema = z.object({
   content: z.string().min(1),
 });
 
-const QUICK_EMOJIS = ["👍", "❤️", "😂", "😮"];
+const QUICK_EMOJIS = ["👍", "❤️", "😂", "😮", "😭"];
 
 interface ChatItemProps {
   id: string;
@@ -34,7 +34,7 @@ interface ChatItemProps {
   fileUrl: string | null;
   deleted: boolean;
   isUpdated: boolean;
-  socketUrl: string;
+  apiUrl: string;
   socketQuery: Record<string, string>;
   reactions?: string[];
   isOnline?: boolean;
@@ -49,7 +49,7 @@ export const ChatItem = ({
   fileUrl,
   deleted,
   isUpdated,
-  socketUrl,
+  apiUrl,
   socketQuery,
   reactions = [],
   isOnline = false,
@@ -92,7 +92,7 @@ export const ChatItem = ({
   const handleEmojiReaction = async (emoji: string) => {
     try {
       const url = qs.stringifyUrl({
-        url: `${socketUrl}/${id}/reaction`,
+        url: `${apiUrl}/${id}/reaction`,
         query: socketQuery,
       });
       await axios.post(url, { emoji }, { withCredentials: true });
@@ -104,7 +104,7 @@ export const ChatItem = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const url = qs.stringifyUrl({
-        url: `${socketUrl}/${id}`,
+        url: `${apiUrl}/${id}`,
         query: socketQuery,
       });
       await axios.patch(url, values, { withCredentials: true });
@@ -289,7 +289,7 @@ export const ChatItem = ({
           {Object.keys(groupedReactions).length > 0 && !deleted && (
             <div
               className={cn(
-                "absolute -bottom-5 flex gap-1 bg-white dark:bg-zinc-800 rounded-full shadow-md px-2 py-0.5 border border-gray-200 dark:border-zinc-700 z-10",
+                "absolute -bottom-5 flex gap-1 bg-white dark:bg-zinc-800 rounded-full shadow-md px-2 py-0.5 border border-gray-200 dark:border-blue-700 z-10",
                 isOwner ? "right-2" : "left-2"
               )}
             >
@@ -348,7 +348,7 @@ export const ChatItem = ({
               <button
                 onClick={() =>
                   onOpen("deleteMessage", {
-                    apiUrl: `${socketUrl}/${id}`,
+                    apiUrl: `${apiUrl}/${id}`,
                     query: socketQuery,
                   })
                 }

@@ -99,10 +99,6 @@ export default async function DirectConversationPage({
             apiUrl={`${process.env.NEXT_PUBLIC_SOCKET_URL}/api/direct-messages`}
             paramKey="conversationId"
             paramValue={conversation.id}
-            socketUrl={
-              `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/direct-messages` ||
-              "http://localhost:4000/api/direct-messages"
-            }
             socketQuery={{
               conversationId: conversation.id,
               profileId: profile.id,

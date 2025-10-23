@@ -1,173 +1,3 @@
-// "use client";
-
-// import { createContext, useContext, useEffect, useState } from "react";
-// import { io, Socket } from "socket.io-client";
-// import type { ServerToClientEvents, ClientToServerEvents } from "shared";
-// import { useSession } from "../../../../lib/auth-client";
-
-// type SocketType = Socket<ServerToClientEvents, ClientToServerEvents>;
-
-// interface SocketContextType {
-//   socket: SocketType | null;
-//   isConnected: boolean;
-// }
-
-// const SocketContext = createContext<SocketContextType>({
-//   socket: null,
-//   isConnected: false,
-// });
-
-// export const useSocket = () => {
-//   const context = useContext(SocketContext);
-//   if (!context) {
-//     throw new Error("useSocket must be used within SocketProvider");
-//   }
-//   return context;
-// };
-
-// export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
-//   const session = useSession();
-//   console.log("Session", session);
-
-//   const [socket, setSocket] = useState<SocketType | null>(null);
-//   const [isConnected, setIsConnected] = useState(false);
-
-//   useEffect(() => {
-//     if (!session.data) {
-//       console.log("inside socket context");
-//       return ;
-//     }
-
-//     const socketUrl =
-//       process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:4000";
-
-//     console.log(" Attempting to connect to:", socketUrl);
-
-//     const socketInstance: SocketType = io(socketUrl, {
-//       withCredentials: true,
-//       autoConnect: true,
-//       addTrailingSlash: false,
-//       reconnection: true,
-//       reconnectionDelay: 1000,
-//       reconnectionDelayMax: 5000,
-//       reconnectionAttempts: 5,
-//     });
-
-//     socketInstance.on("connect", () => {
-//       console.log("✅ Connected to Socket.IO server");
-//       setIsConnected(true);
-//     });
-
-//     socketInstance.on("disconnect", (reason) => {
-//       console.log("❌ Disconnected from Socket.IO server. Reason:", reason);
-//       setIsConnected(false);
-//     });
-
-//     socketInstance.on("connect_error", (error) => {
-//       console.error("❌ Socket connection error:", error);
-//     });
-
-//     setSocket(socketInstance);
-
-//     return () => {
-//       console.log("🧹 Cleaning up socket connection");
-//       socketInstance.disconnect();
-//     };
-//   }, [session,session.data]);
-
-//   return (
-//     <SocketContext.Provider value={{ socket, isConnected }}>
-//       {children}
-//     </SocketContext.Provider>
-//   );
-// };
-
-// "use client";
-
-// import { createContext, useContext, useEffect, useState } from "react";
-// import { io, Socket } from "socket.io-client";
-// import type { ServerToClientEvents, ClientToServerEvents } from "shared";
-// import { useSession } from "../../../../lib/auth-client";
-
-// type SocketType = Socket<ServerToClientEvents, ClientToServerEvents>;
-
-// interface SocketContextType {
-//   socket: SocketType | null;
-//   isConnected: boolean;
-// }
-
-// const SocketContext = createContext<SocketContextType>({
-//   socket: null,
-//   isConnected: false,
-// });
-
-// export const useSocket = () => {
-//   const context = useContext(SocketContext);
-//   if (!context) {
-//     throw new Error("useSocket must be used within SocketProvider");
-//   }
-//   return context;
-// };
-
-// export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
-//   const session = useSession();
-//   const [socket, setSocket] = useState<SocketType | null>(null);
-//   const [isConnected, setIsConnected] = useState(false);
-
-//   useEffect(() => {
-//     if (!session.data?.user?.id) {
-//       return;
-//     }
-
-//     const socketUrl =
-//       process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:4000";
-
-//     console.log("Attempting to connect to:", socketUrl);
-
-//     const socketInstance: SocketType = io(socketUrl, {
-//       auth: {
-//         userId: session.data.user.id,
-//       },
-//       withCredentials: true,
-//       autoConnect: true,
-//       addTrailingSlash: false,
-//       reconnection: true,
-//       reconnectionDelay: 1000,
-//       reconnectionDelayMax: 5000,
-//       reconnectionAttempts: 5,
-//     });
-
-//     socketInstance.on("connect", () => {
-//       console.log("✅ Connected to Socket.IO server");
-//       setIsConnected(true);
-//       setSocket(socketInstance);
-//     });
-
-//     socketInstance.on("disconnect", (reason) => {
-//       console.log("❌ Disconnected from Socket.IO server. Reason:", reason);
-//       setIsConnected(false);
-//       setSocket(null);
-//     });
-
-//     socketInstance.on("connect_error", (error) => {
-//       console.error("❌ Socket connection error:", error);
-//     });
-
-//     return () => {
-//       console.log("Cleaning up socket connection");
-//       socketInstance.disconnect();
-//       setSocket(null);
-//       setIsConnected(false);
-//     };
-//   }, [session.data?.user?.id]);
-
-//   return (
-//     <SocketContext.Provider value={{ socket, isConnected }}>
-//       {children}
-//     </SocketContext.Provider>
-//   );
-// };
-
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
@@ -233,9 +63,9 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       autoConnect: true,
       addTrailingSlash: false,
       reconnection: true,
-      reconnectionDelay: 1000,
-      reconnectionDelayMax: 5000,
-      reconnectionAttempts: 5,
+      reconnectionDelay: 5000,
+      reconnectionDelayMax: 10000,
+      reconnectionAttempts: 3,
     });
 
     // Socket event handlers
@@ -315,7 +145,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       console.log("🔄 Requesting online users list");
       // The backend should automatically send onlineUsers on connection
       // but you can also request it manually if needed
-      socketInstance.emit("requestOnlineUsers",{});
+      socketInstance.emit("requestOnlineUsers", {});
     };
 
     socketInstance.on("connect", handleConnect);

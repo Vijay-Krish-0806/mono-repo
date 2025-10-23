@@ -4,9 +4,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signOut, useSession } from "../../../lib/auth-client";
 import { Button } from "@/components/ui/button";
-import { LogOut, Loader2, User, Bell, Badge } from "lucide-react";
+import { LogOut, Loader2, User } from "lucide-react";
 import { ModeToggle } from "../components/toggle";
-import { useSocket } from "../components/providers/SocketContext";
 import { NotificationBell } from "../components/NotificationBell";
 import { UserSearch } from "../components/UserSearch";
 import { FriendRequests } from "../components/FriendsRequest";
@@ -15,7 +14,6 @@ export default function Navbar() {
   const { data: session, isPending } = useSession();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { socket } = useSocket();
 
   const handleLogout = async () => {
     setLoading(true);

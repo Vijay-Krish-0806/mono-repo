@@ -25,14 +25,6 @@ export interface ClientToServerEvents {
   [key: string]: (data: any) => void;
 }
 
-export interface InterServerEvents {
-  ping: () => void;
-}
-
-export interface SocketData {
-  userId: string;
-  username: string;
-}
 
 // Data Types
 export interface MessageData {

@@ -6,7 +6,7 @@ import { getSession } from "../lib/auth-utils";
 export async function middleware(request: NextRequest) {
   const session = await getSession();
 
-  if (!session && request.nextUrl.pathname === "/login") {
+  if (!session && request.nextUrl.pathname.startsWith("/me")) {
     return NextResponse.redirect(new URL("/auth/sign-in", request.url));
   }
 

@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { NavigationItem } from "../components/navigation-item";
 import { FriendsList } from "../components/FriendsList";
+import Image from "next/image";
 
 export default async function Sidebar() {
   const profile = await getSession();
@@ -26,21 +27,15 @@ export default async function Sidebar() {
     <aside className="fixed  left-0 top-0 w-18 h-screen bg-white dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 z-50">
       <div className="h-16 flex items-center justify-center border-b border-gray-200 dark:border-gray-800">
         <div
-          className="
-            group p-2 rounded-lg 
-            transition-all duration-300 ease-in-out
-            hover:bg-gray-100 dark:hover:bg-gray-800
-            hover:scale-110
-            cursor-pointer
-          "
+          className="group p-2 rounded-lg  cursor-pointer transition-all duration-300 ease-in-out hover:shadow-[0_0_15px_rgba(59,130,246,0.6)] dark:hover:bg-blue-500/30 
+  "
         >
-          <MessageSquare
-            className="
-              w-6 h-6 
-              text-gray-700 dark:text-gray-300 
-              group-hover:text-blue-600 dark:group-hover:text-blue-400
-              transition-colors duration-300
-            "
+          <Image
+            src={"/chat-icon.png"}
+            alt="Chat App Logo"
+            width={35}
+            height={35}
+            className="animate-pulse-logo "
           />
         </div>
       </div>
@@ -57,6 +52,8 @@ export default async function Sidebar() {
               />
             </div>
           ))}
+          <Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto mt-1" />
+
           <FriendsList userId={profile?.id} />
         </ScrollArea>
       </div>

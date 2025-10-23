@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
+
 import "./globals.css";
 import { ThemeProvider } from "@/app/components/providers/theme-provider";
 import { cn } from "@/lib/utils";
@@ -7,14 +8,9 @@ import { ModalProvider } from "./components/providers/modal-provider";
 import { SocketProvider } from "@/app/components/providers/SocketContext";
 import { QueryProvider } from "./components/providers/query-provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -30,12 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          `${geistSans.variable} ${geistMono.variable} antialiased`,
-          "bg-white dark:bg-[#313338]"
-        )}
-      >
+      <body className={cn(`${inter.className}`, "bg-white dark:bg-[#313338]")}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

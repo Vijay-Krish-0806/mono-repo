@@ -38,7 +38,7 @@ export default function LandingPage() {
         {/* Image Section */}
         <div className="flex justify-end md:justify-end mb-10 md:mb-0">
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-indigo-500 rounded-full blur-2xl opacity-40 animate-pulse"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-rose-400 to-indigo-400 rounded-full blur-2xl opacity-40 animate-pulse"></div>
             <div className="relative rounded-full overflow-hidden shadow-2xl border-4 border-cyan-400/60 p-8">
               <Image
                 src="/Vconnect.png"
@@ -82,15 +82,11 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
-
-          {/* CTA Button */}
           <div className="flex justify-center md:justify-start mt-6">
             <Button
-              className="group relative cursor-pointer bg-gradient-to-r from-[#3ac1cf] to-[#2d9da8] hover:from-[#2da8b5] hover:to-[#238892] text-white px-8 sm:px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl shadow-cyan-500/30 hover:shadow-2xl hover:shadow-cyan-500/50 overflow-hidden"
+              className=" cursor-pointer bg-gradient-to-r from-[#3ac1cf] to-[#2d9da8] hover:from-[#2da8b5] hover:to-[#238892] text-white px-8 sm:px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300"
               onClick={handleLogin}
             >
-              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-
               <span className="relative flex items-center gap-2">
                 <Sparkles className="w-5 h-5 animate-pulse" />
                 Start Your Journey
