@@ -27,10 +27,15 @@ export const notificationTypeEnum = pgEnum("notification_type", [
   "DIRECT_MESSAGE",
 ]);
 
+export const friendRequestStatusEnum = pgEnum("friend_request_status", [
+  "PENDING",
+  "ACCEPTED",
+  "REJECTED",
+]);
 // ---------- USERS ----------
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
-  name: text("name"),
+  name: text("name").notNull().unique(),
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").notNull().default(false),
   imageUrl: text("image_url"),
@@ -248,11 +253,17 @@ export const accounts = pgTable("accounts", {
     .defaultNow(),
 });
 
-export const friendRequestStatusEnum = pgEnum("friend_request_status", [
-  "PENDING",
-  "ACCEPTED",
-  "REJECTED",
-]);
+export const verification = pgTable("verification", {
+  id: text("id").primaryKey(),
+  identifier: text("identifier").notNull(),
+  value: text("value").notNull(),
+  expiresAt: timestamp("expires_at").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull(),
+});
 
 // Add this table after your existing tables
 export const friendRequests = pgTable(
@@ -287,10 +298,12 @@ export const friendRequestsRelations = relations(friendRequests, ({ one }) => ({
   sender: one(users, {
     fields: [friendRequests.senderId],
     references: [users.id],
+    relationName: "sender", // Add this
   }),
   recipient: one(users, {
     fields: [friendRequests.recipientId],
     references: [users.id],
+    relationName: "recipient", // Add this
   }),
 }));
 
@@ -386,8 +399,8 @@ export const usersRelations = relations(users, ({ many }) => ({
   servers: many(servers),
   members: many(members),
   channels: many(channels),
-  sentFriendRequests: many(friendRequests, { relationName: "Sender" }),
-  receivedFriendRequests: many(friendRequests, { relationName: "Recipient" }),
+  sentFriendRequests: many(friendRequests, { relationName: "sender" }),
+  receivedFriendRequests: many(friendRequests, { relationName: "recipient" }),
 }));
 
 export const serversRelations = relations(servers, ({ one, many }) => ({

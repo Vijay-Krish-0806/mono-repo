@@ -1,6 +1,6 @@
-import { eq, and, sql } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import db from "./drizzle";
-import { conversations, members, servers } from "./schema";
+import { conversations, members, servers, users } from "./schema";
 
 export const getServer = async (id: string) => {
   const server = await db

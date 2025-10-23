@@ -224,6 +224,7 @@ export function useFriends(socket: Socket | null, userId: string | null) {
       console.error("Error fetching friends list:", error);
     }
   }, [userId]);
+  
   const openConversation = useCallback(
     (friendUserId: string) => {
       router.push(`/me/conversations/${friendUserId}`);

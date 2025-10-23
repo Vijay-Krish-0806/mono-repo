@@ -3,7 +3,7 @@
 import { useSocket } from "./providers/SocketContext";
 import UserAvatar from "./user-avatar";
 import { Users } from "lucide-react";
-import { useFriends } from "../../../hooks/use-friends";
+import { useFriends } from "../../../hooks/use-friends-invite";
 import ActionTooltip from "./action-tooltip";
 
 interface FriendsListProps {

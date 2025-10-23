@@ -5,7 +5,7 @@ import { Check, X, Loader2, UserPlus } from "lucide-react";
 import { useSocket } from "./providers/SocketContext";
 import UserAvatar from "./user-avatar";
 import { format } from "date-fns";
-import { useFriends } from "../../../hooks/use-friends";
+import { useFriends } from "../../../hooks/use-friends-invite";
 import ActionTooltip from "./action-tooltip";
 
 interface FriendRequestsProps {

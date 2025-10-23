@@ -13,7 +13,7 @@ import {
 
 import { useSocket } from "./providers/SocketContext";
 import UserAvatar from "./user-avatar";
-import { useFriends } from "../../../hooks/use-friends";
+import { useFriends } from "../../../hooks/use-friends-invite";
 
 interface UserSearchProps {
   userId: string | null;
@@ -129,7 +129,10 @@ export function UserSearch({ userId }: UserSearchProps) {
                     className="p-3 hover:bg-zinc-50 dark:hover:bg-zinc-700 transition flex items-center justify-between"
                   >
                     <div className="flex items-center gap-3 min-w-0">
-                      <UserAvatar src={user.imageUrl || ""} />
+                      <UserAvatar
+                        src={user.imageUrl || ""}
+                        name={user.name || "User"}
+                      />
                       <div className="min-w-0">
                         <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate">
                           {user.name}

@@ -29,8 +29,6 @@ export const useChatSocket = ({
       return;
     }
 
-    console.log(`🔊 Listening to: ${addKey}, ${updateKey}`);
-
     // Handle message updates (edit/delete)
     socket.on(updateKey, (data: any) => {
       console.log(`📥 Received update on ${updateKey}:`, data);
@@ -54,7 +52,7 @@ export const useChatSocket = ({
                   };
                 }
               } else if (data.action === "update") {
-                // Handle update action
+             
                 if (item.id === data.message.id) {
                   return data.message;
                 }
@@ -93,7 +91,6 @@ export const useChatSocket = ({
     });
 
     return () => {
-      console.log(`🧹 Cleaning up listeners for ${addKey}, ${updateKey}`);
       socket.off(addKey);
       socket.off(updateKey);
     };

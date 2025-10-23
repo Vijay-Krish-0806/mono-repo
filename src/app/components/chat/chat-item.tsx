@@ -95,7 +95,7 @@ export const ChatItem = ({
         url: `${socketUrl}/${id}/reaction`,
         query: socketQuery,
       });
-      await axios.post(url, { emoji },{ withCredentials: true });
+      await axios.post(url, { emoji }, { withCredentials: true });
     } catch (err) {
       console.error(err);
     }
@@ -107,7 +107,7 @@ export const ChatItem = ({
         url: `${socketUrl}/${id}`,
         query: socketQuery,
       });
-      await axios.patch(url, values,{ withCredentials: true });
+      await axios.patch(url, values, { withCredentials: true });
       setIsEditing(false);
     } catch (err) {
       console.error(err);
@@ -134,7 +134,10 @@ export const ChatItem = ({
         }
         className="cursor-pointer hover:drop-shadow-md transition flex-shrink-0 relative"
       >
-        <UserAvatar src={member.user.imageUrl || ""} />
+        <UserAvatar
+          src={member.user.imageUrl || ""}
+          name={member?.user?.name || "User"}
+        />
         {/* Online status indicator */}
         {isOnline && (
           <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white dark:border-zinc-900 rounded-full"></div>

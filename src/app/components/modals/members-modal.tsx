@@ -67,7 +67,7 @@ export default function MembersModal() {
         },
       });
 
-      const response = await axios.delete(url,{ withCredentials: true });
+      const response = await axios.delete(url, { withCredentials: true });
       router.refresh();
       onOpen("members", { server: response.data });
     } catch (error) {
@@ -87,7 +87,11 @@ export default function MembersModal() {
         },
       });
 
-      const response = await axios.patch(url, { role },{ withCredentials: true });
+      const response = await axios.patch(
+        url,
+        { role },
+        { withCredentials: true }
+      );
       router.refresh();
       onOpen("members", { server: response.data });
     } catch (error) {
@@ -112,7 +116,10 @@ export default function MembersModal() {
           <ScrollArea className="mt-8 max-h-[420px] pr-6">
             {server?.members?.map((member) => (
               <div key={member.id} className="flex items-center gap-x-2 mb-6">
-                <UserAvatar src={member.user.imageUrl || undefined} />
+                <UserAvatar
+                  src={member.user.imageUrl || ""}
+                  name={member.user.name || "User"}
+                />
                 <div className="flex flex-col gap-y-1">
                   <div className="text-c=xs font-semibold flex items-center gap-x-1">
                     {member.user.name}
