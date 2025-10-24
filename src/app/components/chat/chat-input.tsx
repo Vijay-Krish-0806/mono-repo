@@ -47,7 +47,6 @@ export const ChatInput = ({
 
   const isLoading = form.formState.isSubmitting;
 
-  // Handle typing - emit typing event with throttle
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     field: any
@@ -69,7 +68,6 @@ export const ChatInput = ({
         url: apiUrl,
         query,
       });
-      console.log("url", url, "values", value);
       await axios.post(url, value,{ withCredentials: true });
       form.reset();
       router.refresh();

@@ -1,4 +1,4 @@
-import { MessageSquare } from "lucide-react";
+import { MessageSquare, Server } from "lucide-react";
 import { getSession } from "../../../lib/auth-utils";
 import { redirect } from "next/navigation";
 import db from "../../../db/drizzle";
@@ -10,9 +10,11 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { NavigationItem } from "../components/navigation-item";
 import { FriendsList } from "../components/FriendsList";
 import Image from "next/image";
+import ActionTooltip from "../components/action-tooltip";
 
 export default async function Sidebar() {
   const profile = await getSession();
+
   if (!profile) {
     return redirect("/auth/sign-in");
   }
@@ -42,6 +44,9 @@ export default async function Sidebar() {
       <div className="space-y-4 flex flex-col items-center h-full text-primary w-full dark:bg-[#1E1F22] py-3">
         <NavigationAction />
         <Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto mt-1" />
+        <ActionTooltip label="Servers | Groups">
+          <Server className="w-6 h-6" />
+        </ActionTooltip>
         <ScrollArea className="flex-1 w-full">
           {serverResults.map((server) => (
             <div key={server.servers.id} className="mb-4">

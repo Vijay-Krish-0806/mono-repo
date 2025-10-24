@@ -59,7 +59,6 @@ export default async function DirectConversationPage({
     return redirect("/me");
   }
 
-  // Use your existing function to get or create conversation
   const conversation = await getOrCreateConversation(
     currentUserMember.id,
     otherUserMember.id
@@ -73,7 +72,7 @@ export default async function DirectConversationPage({
   const otherMember = memberOne.userId === profile.id ? memberTwo : memberOne;
 
   return (
-    <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
+    <div className="bg-white dark:bg-[#313338] flex flex-col h-screen">
       <ChatHeader
         imageUrl={otherMember.user.imageUrl || ""}
         name={otherMember.user.name!}

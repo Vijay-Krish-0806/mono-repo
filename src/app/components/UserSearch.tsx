@@ -14,6 +14,7 @@ import {
 import { useSocket } from "./providers/SocketContext";
 import UserAvatar from "./user-avatar";
 import { useFriends } from "../../../hooks/use-friends-invite";
+import { Input } from "@/components/ui/input";
 
 interface UserSearchProps {
   userId: string | null;
@@ -80,7 +81,7 @@ export function UserSearch({ userId }: UserSearchProps) {
       {/* Search Input */}
       <div className="relative flex items-center">
         <Search className="absolute left-3  transform -translate-y-1/2 w-4 h-4 text-zinc-400" />
-        <input
+        <Input
           type="text"
           placeholder="Search by username..."
           value={searchInput}
@@ -95,7 +96,7 @@ export function UserSearch({ userId }: UserSearchProps) {
         <>
           {/* Backdrop */}
           <div
-            className="fixed inset-0 z-30"
+            className="fixed inset-0"
             onClick={() => {
               setIsOpen(false);
               setSearchInput("");
@@ -103,9 +104,9 @@ export function UserSearch({ userId }: UserSearchProps) {
           />
 
           {/* Dropdown */}
-          <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-zinc-800 rounded-lg shadow-xl border border-zinc-200 dark:border-zinc-700 z-40 max-h-96 overflow-y-auto">
+          <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-zinc-800 rounded-lg shadow-xl border border-zinc-200 dark:border-zinc-700 z-50 max-h-96 overflow-y-auto">
             {searchInput.length < 2 ? (
-              <div className="p-4 text-center text-sm text-zinc-500">
+              <div className="p-4 text-center text-sm text-zinc-500 z-50">
                 Type at least 2 characters to search
               </div>
             ) : isSearching ? (
@@ -118,7 +119,7 @@ export function UserSearch({ userId }: UserSearchProps) {
                 {error}
               </div>
             ) : searchResults.length === 0 ? (
-              <div className="p-4 text-center text-sm text-zinc-500">
+              <div className="p-4 text-center text-sm text-zinc-500 ">
                 No users found
               </div>
             ) : (

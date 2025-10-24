@@ -129,7 +129,7 @@ export const ChatItem = ({
         onClick={() =>
           member.id !== currentMember.id &&
           router.push(
-            `/me/servers/${params?.serverId}/conversations/${member.id}`
+            `/me/conversations/${member.user.id}`
           )
         }
         className="cursor-pointer hover:drop-shadow-md transition flex-shrink-0 relative"
@@ -267,7 +267,7 @@ export const ChatItem = ({
             {!deleted && hovered && !isEditing && (
               <div
                 className={cn(
-                  "absolute -top-9 flex gap-1 px-2 py-1 rounded-full border shadow-lg bg-gray-100 dark:bg-zinc-800 border-gray-200 dark:border-zinc-700 z-10",
+                  "absolute -top-9 flex gap-1 px-2 py-1 rounded-full border shadow-lg bg-gray-100 dark:bg-zinc-800 border-gray-200 dark:border-zinc-700",
                   isOwner ? "right-0" : "left-0"
                 )}
               >
@@ -289,7 +289,7 @@ export const ChatItem = ({
           {Object.keys(groupedReactions).length > 0 && !deleted && (
             <div
               className={cn(
-                "absolute -bottom-5 flex gap-1 bg-white dark:bg-zinc-800 rounded-full shadow-md px-2 py-0.5 border border-gray-200 dark:border-blue-700 z-10",
+                "absolute -bottom-5 flex gap-1 bg-white dark:bg-zinc-800 rounded-full shadow-md px-2 py-0.5 border border-gray-200 dark:border-blue-700 z-5",
                 isOwner ? "right-2" : "left-2"
               )}
             >

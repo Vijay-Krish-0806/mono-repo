@@ -5,6 +5,8 @@ import UserAvatar from "./user-avatar";
 import { Users } from "lucide-react";
 import { useFriends } from "../../../hooks/use-friends-invite";
 import ActionTooltip from "./action-tooltip";
+import { useParams } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 interface FriendsListProps {
   userId: string | null;
@@ -13,13 +15,14 @@ interface FriendsListProps {
 export function FriendsList({ userId }: FriendsListProps) {
   const { socket, presenceMap } = useSocket();
   const { friends, openConversation } = useFriends(socket, userId);
+  const params = useParams();
 
   return (
     <div className="w-full">
-      <div className="p-4">
+      <div className="pl-6 mb-5 mt-3">
         <div className="flex items-center">
           <ActionTooltip label="Friends">
-            <Users className="w-5 h-5 text-zinc-600 dark:text-zinc-400" />
+            <Users className="w-6 h-6" />
           </ActionTooltip>
         </div>
       </div>
@@ -29,16 +32,20 @@ export function FriendsList({ userId }: FriendsListProps) {
           No friends yet
         </div>
       ) : (
-        <div className="">
+        <div>
           {friends.map((friend) => {
             const presence = presenceMap[friend.id];
             const isOnline = presence?.isOnline || false;
+            const isSelected = params.userId === friend.id;
 
             return (
               <div
                 key={friend.id}
                 onClick={() => openConversation(friend.id)}
-                className="mb-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer flex flex-col items-center"
+                className={cn(
+                  "mb-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer flex flex-col items-center",
+                  isSelected && "border-l-4 border-blue-500"
+                )}
               >
                 <div className="relative">
                   <UserAvatar
