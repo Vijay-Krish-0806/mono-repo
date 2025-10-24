@@ -23,8 +23,6 @@ export const useTypingIndicator = ({ roomId }: UseTypingIndicatorProps) => {
     if (!socket) return;
 
     const handleTyping = (data: TypingUser) => {
-      console.log(`${data.username} is typing...`);
-
       setTypingUsers((prev) => {
         const userExists = prev.some((user) => user.userId === data.userId);
         if (userExists) {

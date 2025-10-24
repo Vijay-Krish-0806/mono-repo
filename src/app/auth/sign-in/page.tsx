@@ -26,7 +26,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import LoadingPage from "@/app/me/loading";
 
 const schema = z.object({
   email: z.email("Please enter a valid email address"),

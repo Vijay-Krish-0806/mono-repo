@@ -62,7 +62,6 @@ export const ChatMessages = ({
   });
 
   const { socket, presenceMap } = useSocket();
-  console.log(presenceMap);
 
   useEffect(() => {
     if (!socket || !socket.connected) return;

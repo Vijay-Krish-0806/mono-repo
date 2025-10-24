@@ -81,7 +81,7 @@ export default function MembersModal() {
     try {
       setLoadingId(memberId);
       const url = qs.stringifyUrl({
-        url: `/api/members/${memberId}`,
+        url: `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/members/${memberId}`,
         query: {
           serverId: server?.id,
         },

@@ -8,6 +8,7 @@ import "@livekit/components-styles";
 import { useSession } from "../../../lib/auth-client";
 import { Loader2 } from "lucide-react";
 import { User } from "../../../db/schema";
+import { useRouter } from "next/navigation";
 
 interface MediaRoomProps {
   chatId: string;
@@ -23,6 +24,7 @@ export const MediaRoom = ({
   profileName,
 }: MediaRoomProps) => {
   const [token, setToken] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     if (!profileName) {
@@ -60,6 +62,10 @@ export const MediaRoom = ({
       connect={true}
       video={video}
       audio={audio}
+      onDisconnected={() => {
+        setToken("");
+        router.back();
+      }}
     >
       <VideoConference />
     </LiveKitRoom>

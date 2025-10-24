@@ -31,7 +31,6 @@ export const useChatSocket = ({
 
     // Handle message updates (edit/delete)
     socket.on(updateKey, (data: any) => {
-      console.log(`📥 Received update on ${updateKey}:`, data);
 
       queryClient.setQueryData([queryKey], (oldData: any) => {
         if (!oldData || !oldData.pages || oldData.pages.length === 0) {
@@ -68,7 +67,6 @@ export const useChatSocket = ({
 
     // Handle new messages
     socket.on(addKey, (message: MessageWithMemberWithProfile) => {
-      console.log(`📥 Received new message on ${addKey}:`, message);
 
       queryClient.setQueryData([queryKey], (oldData: any) => {
         if (!oldData || !oldData.pages || oldData.pages.length === 0) {
